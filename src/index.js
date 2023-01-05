@@ -1,8 +1,8 @@
 import './style.css';
+import './normalize.css';
 import TodoItem from './todo-item';
 import Project from './project';
-
-
+import { initialDOMSetup } from './DOM-manipulation';
 
 
 const testNote1 = TodoItem();
@@ -21,3 +21,7 @@ testProject.setId(1);
 testProject.setNoteList([testNote1, testNote2]);
 
 console.log(testProject.getNoteList()[0].getTitle());
+
+
+
+initialDOMSetup();
