@@ -1,4 +1,3 @@
-
 const TodoItem = () => {
     let _id = 0;
     let _title = '';

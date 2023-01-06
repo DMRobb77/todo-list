@@ -2,7 +2,7 @@ import './style.css';
 import './normalize.css';
 import TodoItem from './todo-item';
 import Project from './project';
-import { initialDOMSetup } from './DOM-manipulation';
+import { initialDOMSetup } from './initial-DOM-setup.js';
 
 
 const testNote1 = TodoItem();
