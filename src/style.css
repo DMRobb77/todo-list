@@ -27,3 +27,19 @@
 .article {
 
 }
+
+#task-input {
+
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+.low {
+    color: red;
+}

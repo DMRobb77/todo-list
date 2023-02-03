@@ -1,10 +1,12 @@
-import CheckboxIcon from './checkbox-outline.png';
+import LogoIcon from './checkbox-outline.png';
 import InboxIcon from './inbox-arrow.png';
 import TodayIcon from './sun-clock.png';
 import WeekIcon from './calendar-range.png';
 import PlusIcon from './plus-thick.png';
+import { addTodo } from './add-todo';
 
 function divCreatorAppender(className, parent) {
+    //Creates a div with 'className' and append it 'parent'
     const div = document.createElement('div');
     div.className = className;
     parent.appendChild(div);
@@ -12,8 +14,9 @@ function divCreatorAppender(className, parent) {
 }
 
 function headerSetup(headerDiv) {
+    //Creates the header and adds a logo image and title
     const logoImg = document.createElement('img');
-    logoImg.src = CheckboxIcon;
+    logoImg.src = LogoIcon;
     headerDiv.appendChild(logoImg);
     const headerTitle = document.createElement('h1');
     headerTitle.innerText = 'To-do List';
@@ -22,7 +25,7 @@ function headerSetup(headerDiv) {
 
 function sidebarSetup(sidebarDiv) {
 
-    //Create list of buttons at the top of the sidebar
+    //Creates a list of buttons at the top of the sidebar
     const topList = document.createElement('ul');
 
     const inbox = document.createElement('li');
@@ -54,7 +57,7 @@ function sidebarSetup(sidebarDiv) {
 
     topList.append(inbox, dueToday, dueThisWeek);
 
-    //Setup the list of projects at the bottom of the sidebar
+    //Creates a list of projects at the bottom of the sidebar
     const bottomListHeader = document.createElement('h3');
     bottomListHeader.innerText = 'Projects';
 
@@ -79,6 +82,30 @@ function articleSetup(articleDiv) {
     const taskList = document.createElement('ul');
     taskList.id = 'task-list';
 
+    //Creates the task input box
+    const taskInputDiv = document.createElement('div');
+    taskInputDiv.id = 'task-input';
+    taskInputDiv.classList = 'hidden';
+    const inputTitle = document.createElement('input');
+    inputTitle.type = 'text';
+    inputTitle.id = 'title-input-box';
+    const inputDescription = document.createElement('input');
+    inputDescription.type = 'text';
+    inputDescription.id = 'description-input-box';
+    const inputPriority = document.createElement('select');
+    inputPriority.innerHTML = 
+        `
+            <option value='high'>High</option>
+            <option selected value='medium'>Medium</option>
+            <option value='low'>Low</option>
+        `;
+    inputPriority.id = 'priority-input-box';
+    const inputDueDate = document.createElement('input');
+    inputDueDate.type = 'text';
+    inputDueDate.id = 'date-input-box';
+    taskInputDiv.append(inputTitle, inputDescription, inputPriority, inputDueDate);
+
+    //Creates the button for adding tasks
     const addTaskButton = document.createElement('button');
     const addTaskImg = document.createElement('img');
     addTaskImg.src = PlusIcon;
@@ -86,7 +113,9 @@ function articleSetup(articleDiv) {
     addTaskText.innerText = 'Add Task';
     addTaskButton.append(addTaskImg, addTaskText);
 
-    articleDiv.append(articleHeader, taskList, addTaskButton);
+    //Append elements and implement button behavior
+    articleDiv.append(articleHeader, taskList, taskInputDiv, addTaskButton);
+    addTaskButton.addEventListener('click', addTodo);
 }
 
 function initialDOMSetup() {
@@ -109,4 +138,4 @@ function initialDOMSetup() {
     articleSetup(article);
 }
 
-export { initialDOMSetup }
+export { initialDOMSetup };

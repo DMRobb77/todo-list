@@ -46,14 +46,6 @@ const TodoItem = () => {
         return _priority;
     }
 
-    const setNotes = (newNotes) => {
-        _notes = newNotes;
-    }
-
-    const getNotes = () => {
-        return _notes;
-    }
-
     return {
         setId,
         getId,
@@ -65,8 +57,6 @@ const TodoItem = () => {
         getDueDate,
         setPriority,
         getPriority,
-        setNotes,
-        getNotes
     };
 }
 
