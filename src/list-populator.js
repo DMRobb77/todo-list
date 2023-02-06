@@ -1,5 +1,6 @@
 import BlankCheckbox from './checkbox-blank-outline.png';
 import { format } from 'date-fns';
+import { TodoItem } from './todo-item';
 
 function todoElementAssembler(todo, listDisplay){
     const listItem = document.createElement('li');
@@ -38,6 +39,14 @@ function todoListPopulator(defaultProject){
 }
 
 
+function addTodoToCurrentProject({ toDo, currentProject } = {}){
+    let noteList = currentProject.getNoteList();
+    noteList.push(toDo);
+    currentProject.setNoteList(noteList);
+    console.log(noteList);
+}
+
+
 function projectListPopulator(projectList){
     const projectListDisplay = document.getElementById('project-list');
 
@@ -46,7 +55,6 @@ function projectListPopulator(projectList){
 
         let projectListItem = document.createElement('li');
         let projectButton = document.createElement('button');
-        console.log(projectList[i].getTitle());
         projectButton.innerText = projectList[i].getTitle();
         projectListItem.append(projectButton);
         projectListDisplay.append(projectListItem);
@@ -56,4 +64,4 @@ function projectListPopulator(projectList){
 
 }
 
-export { todoListPopulator, projectListPopulator };
+export { todoListPopulator, addTodoToCurrentProject, projectListPopulator };

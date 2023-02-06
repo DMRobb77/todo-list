@@ -5,7 +5,7 @@ const TodoItem = () => {
     let _dueDate = '';
     let _priority = 0;
     let _notes = '';
-
+    
     const setId = (newId) => {
         _id = newId;
     }
@@ -46,6 +46,7 @@ const TodoItem = () => {
         return _priority;
     }
 
+
     return {
         setId,
         getId,
@@ -60,4 +61,15 @@ const TodoItem = () => {
     };
 }
 
-export default TodoItem;
+function makeStorableTodo(toDo){
+    let storableTodo = {
+        id: toDo.getId(),
+        title: toDo.getTitle(),
+        description: toDo.getDescription(),
+        dueDate: toDo.getDueDate(),
+        priority: toDo.getPriority()
+    }
+    return storableTodo;
+}
+
+export { TodoItem, makeStorableTodo };
