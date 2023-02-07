@@ -4,7 +4,7 @@ import Project from "./project";
 import { todoListPopulator, addTodoToCurrentProject } from "./list-populator";
 
 
-function addTodo(){
+function addTodo(currentProject){
     const taskInput = document.getElementById('task-input');
     const taskTitle = document.getElementById('title-input-box');
     const taskDescription = document.getElementById('description-input-box');
@@ -19,19 +19,20 @@ function addTodo(){
         //Refresh the article view so the new note pops up
         //Clear the input and hide the boxes
 
-        const newNote = TodoItem();
-        newNote.setTitle(taskTitle.value);
-        newNote.setDescription(taskDescription.value);
-        newNote.setDueDate(taskDate.value);
-        newNote.setPriority(taskPriority.value);
+        let newTodo = new TodoItem({
+            title: taskTitle.value,
+            description: taskDescription.value,
+            dueDate: taskDate.value,
+            priority: taskPriority.value
+        });
 
         let testProject = JSON.parse(window.localStorage.getItem('testProject'));
-        console.log(testProject.noteList);
 
+        addTodoToCurrentProject({ toDo: newTodo, currentProject: testProject});
 
-        //addTodoToCurrentProject({ toDo: newNote, currentProject: testProject});
+        window.localStorage.setItem('testProject', JSON.stringify(testProject));
 
-        //todoListPopulator(testProject);
+        todoListPopulator(testProject);
         
         displayTodoInput();
         

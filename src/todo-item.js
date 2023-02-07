@@ -1,4 +1,13 @@
-const TodoItem = () => {
+class TodoItem {
+    constructor({ id, title, description, dueDate, priority }){
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.priority = priority;
+    }
+
+    /*
     let _id = 0;
     let _title = '';
     let _description = '';
@@ -59,6 +68,9 @@ const TodoItem = () => {
         setPriority,
         getPriority,
     };
+
+    */
+
 }
 
 function makeStorableTodo(toDo){

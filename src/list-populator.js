@@ -13,10 +13,10 @@ function todoElementAssembler(todo, listDisplay){
     const expandButtonDiv = document.createElement('div');
     expandButton.append(expandButtonDiv);
     const todoTitle = document.createElement('span');
-    todoTitle.innerText = todo.getTitle();
+    todoTitle.innerText = todo.title;
     const todoPriority = document.createElement('span');
 
-    todoPriority.innerText = todo.getPriority();
+    todoPriority.innerText = todo.priority;
     const todoDate = document.createElement('span');
     todoDate.innerText = 'date';
 
@@ -26,24 +26,23 @@ function todoElementAssembler(todo, listDisplay){
     listDisplay.append(listItem);
 }
 
-function todoListPopulator(defaultProject){
-    const projectTodoList = defaultProject.getNoteList();
+function todoListPopulator(currentProject){
+    const projectTodoList = currentProject.toDoList;
     const listDisplay = document.getElementById('task-list');
-
+    listDisplay.innerHTML = '';
 
     for (let i = 0; i < projectTodoList.length; i++){
         todoElementAssembler(projectTodoList[i], listDisplay);
     }
 
-
 }
 
 
 function addTodoToCurrentProject({ toDo, currentProject } = {}){
-    let noteList = currentProject.getNoteList();
-    noteList.push(toDo);
-    currentProject.setNoteList(noteList);
-    console.log(noteList);
+    let toDoList = currentProject.toDoList;
+    toDoList.push(toDo);
+    currentProject.toDoList = toDoList;
+    console.log(toDoList);
 }
 
 
@@ -55,10 +54,9 @@ function projectListPopulator(projectList){
 
         let projectListItem = document.createElement('li');
         let projectButton = document.createElement('button');
-        projectButton.innerText = projectList[i].getTitle();
+        projectButton.innerText = projectList[i].title;
         projectListItem.append(projectButton);
         projectListDisplay.append(projectListItem);
-
 
     }
 

@@ -1,4 +1,13 @@
-const Project = () => {
+class Project {
+    constructor({ id, title, toDoList }){
+        this.id = id;
+        this.title = title;
+        this.toDoList = toDoList;
+    }
+
+
+
+    /*
     let _id = 0;
     let _title = '';
     let _noteList = [];
@@ -35,7 +44,7 @@ const Project = () => {
         setNoteList,
         getNoteList
     }
-
+    */
 }
 
 export default Project;
