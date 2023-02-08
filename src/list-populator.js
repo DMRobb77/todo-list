@@ -1,37 +1,10 @@
-import BlankCheckbox from './checkbox-blank-outline.png';
 import { format } from 'date-fns';
 import { TodoItem } from './todo-item';
 import { removeTodo } from './remove-todo';
 import { reIndexProject } from './project-handler';
+import { addTodoElement } from './DOM-manipulation';
+import { swapCurrentProject } from './project-handler';
 
-function todoElementAssembler(todo, listDisplay){
-    const listItem = document.createElement('li');
-    const doneButton = document.createElement('button');
-    const emptyBoxImg = document.createElement('img');
-    emptyBoxImg.src = BlankCheckbox;
-    doneButton.append(emptyBoxImg);
-    
-    const expandButton = document.createElement('button');
-    const expandButtonDiv = document.createElement('div');
-    expandButton.append(expandButtonDiv);
-    const todoTitle = document.createElement('span');
-    todoTitle.innerText = todo.title;
-    const todoPriority = document.createElement('span');
-
-    todoPriority.innerText = todo.priority;
-    const todoDate = document.createElement('span');
-    todoDate.innerText = 'date';
-
-    expandButtonDiv.append(todoTitle, todoPriority, todoDate);
-    
-    listItem.append(doneButton, expandButton);
-    listDisplay.append(listItem);
-
-    doneButton.addEventListener('click', function(){ removeTodo( {
-        todoElement: listItem,
-        todoIndex: todo.id
-    }) } );
-}
 
 function todoListPopulator(currentProject){
     const projectTodoList = currentProject.todoList;
@@ -39,9 +12,11 @@ function todoListPopulator(currentProject){
     listDisplay.innerHTML = '';
 
     for (let i = 0; i < projectTodoList.length; i++){
-        todoElementAssembler(projectTodoList[i], listDisplay);
+        addTodoElement({
+            todo: projectTodoList[i], 
+            listDisplay: listDisplay
+        });
     }
-
 }
 
 
@@ -55,17 +30,15 @@ function addTodoToCurrentProject({ toDo, currentProject } = {}){
 function projectListPopulator(projectList){
     const projectListDisplay = document.getElementById('project-list');
 
-
     for (let i = 0; i < projectList.length; i++){
-
         let projectListItem = document.createElement('li');
         let projectButton = document.createElement('button');
         projectButton.innerText = projectList[i].title;
         projectListItem.append(projectButton);
-        projectListDisplay.append(projectListItem);
+        projectListDisplay.append(projectListItem);   
 
+        projectButton.addEventListener('click', function(){ swapCurrentProject(projectList[i]) });
     }
-
 }
 
 export { todoListPopulator, addTodoToCurrentProject, projectListPopulator };

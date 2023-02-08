@@ -23,6 +23,14 @@ let testNote2 = new TodoItem({
     priority: 0
 })
 
+let testNote3 = new TodoItem({
+    id: 0,
+    title: 'Test test test',
+    description: 'Different project though',
+    dueDate: 'Who Knows',
+    priority: 2
+})
+
 let testProject1 = new Project({
     id: 0,
     title: 'Test Project 1',
@@ -32,7 +40,7 @@ let testProject1 = new Project({
 let testProject2 =  new Project({
     id: 1,
     title: 'Test Project 2',
-    todoList: []
+    todoList: [ testNote3 ]
 })
 
 let projectList = [ testProject1, testProject2 ];
@@ -40,6 +48,9 @@ let projectList = [ testProject1, testProject2 ];
 //Testing storable
 
 window.localStorage.setItem('testProject', JSON.stringify(testProject1));
+window.localStorage.setItem('testProjectList', JSON.stringify(projectList))
+
+setCurrentProject(testProject1);
 
 initialDOMSetup();
 
@@ -47,7 +58,7 @@ todoListPopulator(testProject1);
 
 projectListPopulator(projectList);
 
-setCurrentProject(testProject1);
+
 
 /*
 let testNote2 = TodoItem();

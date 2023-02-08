@@ -2,10 +2,10 @@ import { displayTodoInput } from "./DOM-manipulation";
 import { TodoItem } from "./todo-item";
 import Project from "./project";
 import { todoListPopulator, addTodoToCurrentProject } from "./list-populator";
-import { reIndexProject } from "./project-handler";
+import { getCurrentProject, reIndexProject } from "./project-handler";
 
 
-function addTodo(currentProject){
+function addTodo(){
     const taskInput = document.getElementById('task-input');
     const taskTitle = document.getElementById('title-input-box');
     const taskDescription = document.getElementById('description-input-box');
@@ -27,11 +27,12 @@ function addTodo(currentProject){
             priority: taskPriority.value
         });
 
-        let testProject = JSON.parse(window.localStorage.getItem('testProject'));
+        let testProject = getCurrentProject();
+        //JSON.parse(window.localStorage.getItem('testProject'));
 
         addTodoToCurrentProject({ toDo: newTodo, currentProject: testProject});
 
-        window.localStorage.setItem('testProject', JSON.stringify(testProject));
+        //window.localStorage.setItem('testProject', JSON.stringify(testProject));
 
         todoListPopulator(testProject);
         

@@ -4,6 +4,7 @@ import TodayIcon from './sun-clock.png';
 import WeekIcon from './calendar-range.png';
 import PlusIcon from './plus-thick.png';
 import { addTodo } from './add-todo';
+import { getCurrentProject } from './project-handler';
 
 function divCreatorAppender(className, parent) {
     //Creates a div with 'className' and append it 'parent'

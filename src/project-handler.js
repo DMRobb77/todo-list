@@ -1,3 +1,4 @@
+import { todoListPopulator } from "./list-populator";
 
 let projectHolder = {};
 
@@ -15,11 +16,20 @@ function reIndexProject(currentProject){
 
     for (let i = 0; i < projectTodoList.length; i++){
         projectTodoList[i].id = [i];
-        console.log(projectTodoList[i].id);
     }
     projectHolder.todoList = projectTodoList;
 
 }
 
+function swapCurrentProject(newCurrentProject){
 
-export { getCurrentProject, setCurrentProject, reIndexProject };
+
+    if (newCurrentProject != getCurrentProject()){
+        setCurrentProject(newCurrentProject);
+        todoListPopulator(newCurrentProject);   
+        console.log(`current project is ${newCurrentProject.title}`);
+    }
+}
+
+
+export { getCurrentProject, setCurrentProject, reIndexProject, swapCurrentProject };
