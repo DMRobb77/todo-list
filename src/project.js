@@ -1,8 +1,8 @@
 class Project {
-    constructor({ id, title, toDoList }){
+    constructor({ id, title, todoList }){
         this.id = id;
         this.title = title;
-        this.toDoList = toDoList;
+        this.todoList = todoList;
     }
 
 

@@ -4,6 +4,7 @@ import { TodoItem, makeStorableTodo } from './todo-item';
 import Project from './project';
 import { todoListPopulator, projectListPopulator } from './list-populator';
 import { initialDOMSetup } from './initial-DOM-setup.js';
+import { setCurrentProject } from './project-handler';
 
 
 let testNote1 = new TodoItem({
@@ -25,13 +26,13 @@ let testNote2 = new TodoItem({
 let testProject1 = new Project({
     id: 0,
     title: 'Test Project 1',
-    toDoList: [ testNote1, testNote2 ]
+    todoList: [ testNote1, testNote2 ]
 })
 
 let testProject2 =  new Project({
     id: 1,
     title: 'Test Project 2',
-    toDoList: []
+    todoList: []
 })
 
 let projectList = [ testProject1, testProject2 ];
@@ -46,7 +47,7 @@ todoListPopulator(testProject1);
 
 projectListPopulator(projectList);
 
-
+setCurrentProject(testProject1);
 
 /*
 let testNote2 = TodoItem();

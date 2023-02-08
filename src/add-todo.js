@@ -2,6 +2,7 @@ import { displayTodoInput } from "./DOM-manipulation";
 import { TodoItem } from "./todo-item";
 import Project from "./project";
 import { todoListPopulator, addTodoToCurrentProject } from "./list-populator";
+import { reIndexProject } from "./project-handler";
 
 
 function addTodo(currentProject){
@@ -34,6 +35,8 @@ function addTodo(currentProject){
 
         todoListPopulator(testProject);
         
+        reIndexProject(testProject);
+
         displayTodoInput();
         
         taskPriority.value = 'medium';

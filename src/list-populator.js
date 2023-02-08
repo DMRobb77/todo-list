@@ -1,6 +1,8 @@
 import BlankCheckbox from './checkbox-blank-outline.png';
 import { format } from 'date-fns';
 import { TodoItem } from './todo-item';
+import { removeTodo } from './remove-todo';
+import { reIndexProject } from './project-handler';
 
 function todoElementAssembler(todo, listDisplay){
     const listItem = document.createElement('li');
@@ -24,10 +26,15 @@ function todoElementAssembler(todo, listDisplay){
     
     listItem.append(doneButton, expandButton);
     listDisplay.append(listItem);
+
+    doneButton.addEventListener('click', function(){ removeTodo( {
+        todoElement: listItem,
+        todoIndex: todo.id
+    }) } );
 }
 
 function todoListPopulator(currentProject){
-    const projectTodoList = currentProject.toDoList;
+    const projectTodoList = currentProject.todoList;
     const listDisplay = document.getElementById('task-list');
     listDisplay.innerHTML = '';
 
@@ -39,10 +46,9 @@ function todoListPopulator(currentProject){
 
 
 function addTodoToCurrentProject({ toDo, currentProject } = {}){
-    let toDoList = currentProject.toDoList;
-    toDoList.push(toDo);
-    currentProject.toDoList = toDoList;
-    console.log(toDoList);
+    let todoList = currentProject.todoList;
+    todoList.push(toDo);
+    currentProject.todoList = todoList;
 }
 
 
