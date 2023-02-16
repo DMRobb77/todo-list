@@ -4,14 +4,14 @@ import { TodoItem, makeStorableTodo } from './todo-item';
 import Project from './project';
 import { todoListPopulator, projectListPopulator } from './list-populator';
 import { initialDOMSetup } from './initial-DOM-setup.js';
-import { setCurrentProject } from './project-handler';
+import { setCurrentProject, setMainProjectList } from './project-handler';
 
 
 let testNote1 = new TodoItem({
     id: 0,
     title: 'Test Title',
     description: 'This is a test description',
-    dueDate: 'Test Date',
+    dueDate: new Date("2/14/23"),
     priority: 1
 })
 
@@ -19,7 +19,15 @@ let testNote2 = new TodoItem({
     id: 1,
     title: 'Another Test Title',
     description: 'This is another test description',
-    dueDate: 'Another Test Date',
+    dueDate: new Date("2/14/23"),
+    priority: 0
+})
+
+let testNote4 = new TodoItem({
+    id: 2,
+    title: 'Another Another Test Title',
+    description: 'This is another test description',
+    dueDate: new Date("5/15/23"),
     priority: 0
 })
 
@@ -27,14 +35,14 @@ let testNote3 = new TodoItem({
     id: 0,
     title: 'Test test test',
     description: 'Different project though',
-    dueDate: 'Who Knows',
+    dueDate: new Date("2/18/23"),
     priority: 2
 })
 
-let testProject1 = new Project({
+let defaultInboxProject = new Project({
     id: 0,
-    title: 'Test Project 1',
-    todoList: [ testNote1, testNote2 ]
+    title: 'Inbox',
+    todoList: [ testNote1, testNote2, testNote4 ]
 })
 
 let testProject2 =  new Project({
@@ -43,18 +51,19 @@ let testProject2 =  new Project({
     todoList: [ testNote3 ]
 })
 
-let projectList = [ testProject1, testProject2 ];
+let projectList = [ defaultInboxProject, testProject2 ];
+setMainProjectList(projectList);
 
 //Testing storable
 
-window.localStorage.setItem('testProject', JSON.stringify(testProject1));
+window.localStorage.setItem('testProject', JSON.stringify(defaultInboxProject));
 window.localStorage.setItem('testProjectList', JSON.stringify(projectList))
 
-setCurrentProject(testProject1);
+setCurrentProject(defaultInboxProject);
 
 initialDOMSetup();
 
-todoListPopulator(testProject1);
+todoListPopulator(defaultInboxProject);
 
 projectListPopulator(projectList);
 

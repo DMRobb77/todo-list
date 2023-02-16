@@ -4,7 +4,10 @@ import TodayIcon from './sun-clock.png';
 import WeekIcon from './calendar-range.png';
 import PlusIcon from './plus-thick.png';
 import { addTodo } from './add-todo';
-import { getCurrentProject } from './project-handler';
+import { addProject } from './add-project';
+import { projectListPopulator } from './list-populator';
+import { swapCurrentProject, getMainProjectList } from './project-handler';
+import { findDueToday, findDueThisWeek } from './todo-list-date-search';
 
 function divCreatorAppender(className, parent) {
     //Creates a div with 'className' and append it 'parent'
@@ -33,10 +36,14 @@ function sidebarSetup(sidebarDiv) {
     const inboxButton = document.createElement('button');
     const inboxImg = document.createElement('img');
     inboxImg.src = InboxIcon;
+
+    const inboxProject = getMainProjectList()[0];
     const inboxText = document.createElement('span');
     inboxText.innerText = 'Inbox';
     inboxButton.append(inboxImg, inboxText);
     inbox.append(inboxButton);
+    inboxButton.addEventListener('click', function(){
+        swapCurrentProject(inboxProject)});
 
     const dueToday = document.createElement('li');
     const dueTodayButton = document.createElement('button');
@@ -46,6 +53,8 @@ function sidebarSetup(sidebarDiv) {
     dueTodayText.innerText = 'Due Today';
     dueTodayButton.append(dueTodayImg, dueTodayText);
     dueToday.append(dueTodayButton);
+    dueToday.addEventListener('click', findDueToday);
+
 
     const dueThisWeek = document.createElement('li');
     const dueWeekBtn = document.createElement('button');
@@ -55,6 +64,7 @@ function sidebarSetup(sidebarDiv) {
     dueWeekText.innerText = 'Due This Week';
     dueWeekBtn.append(dueWeekImg, dueWeekText);
     dueThisWeek.append(dueWeekBtn);
+    dueWeekBtn.addEventListener('click', findDueThisWeek);
 
     topList.append(inbox, dueToday, dueThisWeek);
 
@@ -65,14 +75,29 @@ function sidebarSetup(sidebarDiv) {
     const bottomList = document.createElement('ul');
     bottomList.id = 'project-list';
 
+    //Create the project input box
+    const projectInputDiv =  document.createElement('div');
+    projectInputDiv.id = 'project-input';
+    projectInputDiv.classList = 'hidden';
+    const inputProjectTitle = document.createElement('input');
+    inputProjectTitle.type = 'text';
+    inputProjectTitle.id = 'project-input-box';
+    projectInputDiv.append(inputProjectTitle);
+
     const addProjectBtn = document.createElement('button');
     const addProjectImg = document.createElement('img');
     addProjectImg.src = PlusIcon;
     const addProjectText = document.createElement('span');
     addProjectText.innerText = 'Add Project';
     addProjectBtn.append(addProjectImg, addProjectText);
+    addProjectBtn.addEventListener('click', addProject);
 
-    sidebarDiv.append(topList, bottomListHeader, bottomList, addProjectBtn);
+    sidebarDiv.append(
+        topList, 
+        bottomListHeader, 
+        bottomList,
+        projectInputDiv,
+        addProjectBtn);
 }
 
 function articleSetup(articleDiv) {

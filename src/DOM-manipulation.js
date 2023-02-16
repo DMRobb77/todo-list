@@ -6,6 +6,11 @@ function displayTodoInput(){
     taskInput.classList.toggle('visible');
 }
 
+function displayNewProjectInput(){
+    const inputDiv = document.getElementById('project-input');
+    inputDiv.classList.toggle('visible');
+}
+
 function addTodoElement({ todo, listDisplay} = {}){
     const listItem = document.createElement('li');
     const doneButton = document.createElement('button');
@@ -35,9 +40,19 @@ function addTodoElement({ todo, listDisplay} = {}){
     }) } );
 }
 
+function changeArticleHeader(project){
+    const articleHeader = document.getElementById('article-header');
+    articleHeader.innerText = project.title;
+}
+
 
 function removeTodoElement(todo){
     todo.remove();
 }
 
-export { displayTodoInput, removeTodoElement, addTodoElement };
+export { 
+    displayTodoInput, 
+    removeTodoElement, 
+    addTodoElement, 
+    changeArticleHeader,
+    displayNewProjectInput };

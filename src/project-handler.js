@@ -1,6 +1,9 @@
 import { todoListPopulator } from "./list-populator";
+import { changeArticleHeader, displayTodoInput } from "./DOM-manipulation";
 
 let projectHolder = {};
+
+let mainProjectList = {};
 
 function getCurrentProject(){
     return projectHolder;
@@ -8,6 +11,21 @@ function getCurrentProject(){
 
 function setCurrentProject(currentProject){
     projectHolder = currentProject;
+}
+
+function setMainProjectList(projects){
+    mainProjectList = projects;
+}
+
+function getMainProjectList(){
+    return mainProjectList;
+}
+
+function reIndexMainProjectList(mainProjectList){
+    for (let i = 0; i < mainProjectList.length;  i++){
+        mainProjectList[i].id = i;
+    }
+
 }
 
 function reIndexProject(currentProject){
@@ -22,14 +40,26 @@ function reIndexProject(currentProject){
 }
 
 function swapCurrentProject(newCurrentProject){
-
-
-    if (newCurrentProject != getCurrentProject()){
+    if (newCurrentProject && newCurrentProject != getCurrentProject()){
         setCurrentProject(newCurrentProject);
         todoListPopulator(newCurrentProject);   
-        console.log(`current project is ${newCurrentProject.title}`);
+        changeArticleHeader(newCurrentProject);
     }
+
+    const todoInputBox = document.getElementById('task-input');
+    if (todoInputBox.classList.contains('visible')){
+        displayTodoInput();
+    }
+
 }
 
 
-export { getCurrentProject, setCurrentProject, reIndexProject, swapCurrentProject };
+export { 
+    getCurrentProject, 
+    setCurrentProject, 
+    reIndexProject,
+    reIndexMainProjectList, 
+    setMainProjectList,
+    getMainProjectList, 
+    swapCurrentProject
+};

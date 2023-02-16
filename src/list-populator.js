@@ -29,8 +29,9 @@ function addTodoToCurrentProject({ toDo, currentProject } = {}){
 
 function projectListPopulator(projectList){
     const projectListDisplay = document.getElementById('project-list');
+    projectListDisplay.innerHTML = '';
 
-    for (let i = 0; i < projectList.length; i++){
+    for (let i = 1; i < projectList.length; i++){
         let projectListItem = document.createElement('li');
         let projectButton = document.createElement('button');
         projectButton.innerText = projectList[i].title;

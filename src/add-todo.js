@@ -1,6 +1,5 @@
 import { displayTodoInput } from "./DOM-manipulation";
 import { TodoItem } from "./todo-item";
-import Project from "./project";
 import { todoListPopulator, addTodoToCurrentProject } from "./list-populator";
 import { getCurrentProject, reIndexProject } from "./project-handler";
 
