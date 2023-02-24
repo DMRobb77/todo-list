@@ -3,12 +3,13 @@ import { format, isSameWeek } from 'date-fns';
 import Project from "./project";
 import { todoListPopulator } from "./list-populator";
 import { swapCurrentProject } from "./project-handler";
+import { toggleAddTaskButton } from "./DOM-manipulation";
 
 function concatAllTodos(){
     let allProjects = getMainProjectList();
     let allTodos = [];
 
-    for (let i = 0; i < allProjects.length; i++){
+    for (let i = 2; i < allProjects.length; i++){
         allTodos = [].concat(allTodos, allProjects[i].todoList);
     }
 
@@ -27,6 +28,7 @@ function findDueToday(){
     let allTodos = concatAllTodos();
     let dueToday = [];
     let dateToday = getFormattedToday();
+    let dueTodayProject = getMainProjectList()[0];
 
     for (let i = 0; i < allTodos.length; i++){
         let formattedDueDate = format(allTodos[i].dueDate, 'dd-MM-yyyy');
@@ -35,35 +37,27 @@ function findDueToday(){
         }
     }
 
-    let dueTodayProject = new Project({
-        title: 'Due Today',
-        todoList: dueToday
-    })
+    dueTodayProject.todoList = dueToday;
     
     swapCurrentProject(dueTodayProject);
 
 }
 
 function findDueThisWeek(){
-    console.log('ayyy lmao');
     let allTodos = concatAllTodos();
     let dueThisWeek = [];
     let dateToday = new Date();
+    let dueThisWeekProject = getMainProjectList()[1];
 
     for (let i = 0; i < allTodos.length; i++){
         if (isSameWeek(dateToday, allTodos[i].dueDate)){
-            console.log('we got one thats due');
             dueThisWeek.push(allTodos[i]);
         }
     }
 
-    let dueThisWeekProject = new Project({
-        title: 'Due This Week',
-        todoList: dueThisWeek
-    })
+    dueThisWeekProject.todoList = dueThisWeek;
 
     swapCurrentProject(dueThisWeekProject);
-
 
 }
 

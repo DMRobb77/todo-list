@@ -37,7 +37,7 @@ function sidebarSetup(sidebarDiv) {
     const inboxImg = document.createElement('img');
     inboxImg.src = InboxIcon;
 
-    const inboxProject = getMainProjectList()[0];
+    const inboxProject = getMainProjectList()[2];
     const inboxText = document.createElement('span');
     inboxText.innerText = 'Inbox';
     inboxButton.append(inboxImg, inboxText);
@@ -121,18 +121,20 @@ function articleSetup(articleDiv) {
     const inputPriority = document.createElement('select');
     inputPriority.innerHTML = 
         `
-            <option value='high'>High</option>
-            <option selected value='medium'>Medium</option>
-            <option value='low'>Low</option>
+            <option value='2'>🟥 High</option>
+            <option selected value='1'>🟨 Medium</option>
+            <option value='0'>🟩 Low</option>
         `;
     inputPriority.id = 'priority-input-box';
     const inputDueDate = document.createElement('input');
-    inputDueDate.type = 'text';
+    inputDueDate.type = 'date';
     inputDueDate.id = 'date-input-box';
+    inputDueDate.value = new Date();
     taskInputDiv.append(inputTitle, inputDescription, inputPriority, inputDueDate);
 
     //Creates the button for adding tasks
     const addTaskButton = document.createElement('button');
+    addTaskButton.id = 'add-task-btn';
     const addTaskImg = document.createElement('img');
     addTaskImg.src = PlusIcon;
     const addTaskText = document.createElement('span');

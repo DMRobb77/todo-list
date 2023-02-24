@@ -7,8 +7,6 @@ import { getMainProjectList, setMainProjectList, reIndexMainProjectList } from "
 function addProject(){
     const inputDiv = document.getElementById('project-input');
     const inputTitle = document.getElementById('project-input-box');
-
-    console.log('whewlad');
     
     if (inputDiv.classList.contains('visible') && inputTitle.value){
         let newProject = new Project({
@@ -33,7 +31,6 @@ function addProject(){
         displayNewProjectInput();
     }
     
-
 }
 
 

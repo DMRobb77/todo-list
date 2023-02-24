@@ -40,18 +40,30 @@ let testNote3 = new TodoItem({
 })
 
 let defaultInboxProject = new Project({
-    id: 0,
+    id: 2,
     title: 'Inbox',
     todoList: [ testNote1, testNote2, testNote4 ]
 })
 
-let testProject2 =  new Project({
+let defaultDueTodayProject = new Project({
+    id: 0,
+    title: 'Due Today',
+    todoList: []
+})
+
+let defaultDueThisWeekProject = new Project({
     id: 1,
+    title: 'Due This Week',
+    todoList: []
+})
+
+let testProject2 =  new Project({
+    id: 3,
     title: 'Test Project 2',
     todoList: [ testNote3 ]
 })
 
-let projectList = [ defaultInboxProject, testProject2 ];
+let projectList = [  defaultDueTodayProject, defaultDueThisWeekProject, defaultInboxProject, testProject2 ];
 setMainProjectList(projectList);
 
 //Testing storable

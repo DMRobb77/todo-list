@@ -1,14 +1,38 @@
 import BlankCheckbox from './checkbox-blank-outline.png';
 import { removeTodo } from './remove-todo';
+import { format } from 'date-fns';
+import { clearInputBoxes } from './add-todo';
 
 function displayTodoInput(){
     const taskInput = document.getElementById('task-input');
     taskInput.classList.toggle('visible');
+    clearInputBoxes();
 }
 
 function displayNewProjectInput(){
     const inputDiv = document.getElementById('project-input');
     inputDiv.classList.toggle('visible');
+}
+
+function formatPriority(prio){
+    let formattedPrio = '';
+    switch (prio){
+        case 0:
+            formattedPrio = `🟩 Low`;
+            break;
+        case 1:
+            formattedPrio = `🟨 Medium`;
+            break;
+        case 2:
+            formattedPrio = `🟥 High`;
+            break;
+        default:
+            console.log('Priority was not set correctly');
+            break;
+        
+    }
+
+    return formattedPrio;
 }
 
 function addTodoElement({ todo, listDisplay} = {}){
@@ -25,9 +49,14 @@ function addTodoElement({ todo, listDisplay} = {}){
     todoTitle.innerText = todo.title;
     const todoPriority = document.createElement('span');
 
-    todoPriority.innerText = todo.priority;
+    todoPriority.innerText = formatPriority(todo.priority);
     const todoDate = document.createElement('span');
-    todoDate.innerText = 'date';
+
+    if (!Number.isNaN(new Date(todo.dueDate).getTime())){
+    } else {
+        todo.dueDate = new Date();
+    }
+    todoDate.innerText = format(todo.dueDate, 'MMMM do, yyyy');
 
     expandButtonDiv.append(todoTitle, todoPriority, todoDate);
     
@@ -45,6 +74,17 @@ function changeArticleHeader(project){
     articleHeader.innerText = project.title;
 }
 
+function toggleAddTaskButton(buttonDisplay){
+
+    let addButton = document.getElementById('add-task-btn');
+    if (!buttonDisplay ){
+        addButton.classList.add('hidden');
+    } else if (buttonDisplay) {
+        addButton.classList.remove('hidden');
+    } else {
+        console.log('Uh oh, the Add Button toggle broke');
+    }
+}
 
 function removeTodoElement(todo){
     todo.remove();
@@ -55,4 +95,5 @@ export {
     removeTodoElement, 
     addTodoElement, 
     changeArticleHeader,
+    toggleAddTaskButton,
     displayNewProjectInput };

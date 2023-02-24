@@ -3,14 +3,12 @@ import { TodoItem } from "./todo-item";
 import { todoListPopulator, addTodoToCurrentProject } from "./list-populator";
 import { getCurrentProject, reIndexProject } from "./project-handler";
 
-
 function addTodo(){
     const taskInput = document.getElementById('task-input');
     const taskTitle = document.getElementById('title-input-box');
     const taskDescription = document.getElementById('description-input-box');
     const taskPriority = document.getElementById('priority-input-box');
     const taskDate = document.getElementById('date-input-box');
-    const inputBoxes = [ taskTitle, taskDescription, taskDate ];
 
     if (taskInput.classList.contains('visible') && taskTitle.value)
     {
@@ -19,14 +17,16 @@ function addTodo(){
         //Refresh the article view so the new note pops up
         //Clear the input and hide the boxes
 
+
         let newTodo = new TodoItem({
             title: taskTitle.value,
             description: taskDescription.value,
-            dueDate: taskDate.value,
-            priority: taskPriority.value
+            dueDate: offsetDateTimezone(taskDate.value),
+            priority: parseInt(taskPriority.value)
         });
 
         let testProject = getCurrentProject();
+
         //JSON.parse(window.localStorage.getItem('testProject'));
 
         addTodoToCurrentProject({ toDo: newTodo, currentProject: testProject});
@@ -38,25 +38,35 @@ function addTodo(){
         reIndexProject(testProject);
 
         displayTodoInput();
-        
-        taskPriority.value = 'medium';
 
-        clearInputBoxes(inputBoxes);
+        clearInputBoxes();
 
 
     } else {
         displayTodoInput();
     }
 
-
 }
 
+function offsetDateTimezone(dueDate){
+    const dt = new Date(dueDate);
+    const dateOnly = new Date(dt.valueOf() + dt.getTimezoneOffset() * 60 * 1000);
+    return dateOnly;
+}
 
-function clearInputBoxes(inputBoxes) {
+function clearInputBoxes() {
+    const taskTitle = document.getElementById('title-input-box');
+    const taskDescription = document.getElementById('description-input-box');
+    const taskDate = document.getElementById('date-input-box');
+    const inputBoxes = [ taskTitle, taskDescription, taskDate ];
+    const taskPriority = document.getElementById('priority-input-box');
+
+    taskPriority.value = 1;
+
     for (let i = 0; i < inputBoxes.length; i++) {
             inputBoxes[i].value = "";
     }
 }
 
 
-export { addTodo };
+export { addTodo, clearInputBoxes };

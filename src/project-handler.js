@@ -1,5 +1,6 @@
 import { todoListPopulator } from "./list-populator";
 import { changeArticleHeader, displayTodoInput } from "./DOM-manipulation";
+import { toggleAddTaskButton } from "./DOM-manipulation";
 
 let projectHolder = {};
 
@@ -25,7 +26,6 @@ function reIndexMainProjectList(mainProjectList){
     for (let i = 0; i < mainProjectList.length;  i++){
         mainProjectList[i].id = i;
     }
-
 }
 
 function reIndexProject(currentProject){
@@ -44,13 +44,18 @@ function swapCurrentProject(newCurrentProject){
         setCurrentProject(newCurrentProject);
         todoListPopulator(newCurrentProject);   
         changeArticleHeader(newCurrentProject);
+
+        if (newCurrentProject.id == 0 || newCurrentProject.id == 1){
+            toggleAddTaskButton(false);
+        } else {
+            toggleAddTaskButton(true);
+        }
     }
 
     const todoInputBox = document.getElementById('task-input');
     if (todoInputBox.classList.contains('visible')){
         displayTodoInput();
     }
-
 }
 
 
