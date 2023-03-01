@@ -1,10 +1,7 @@
-import { format } from 'date-fns';
-import { TodoItem } from './todo-item';
-import { removeTodo } from './remove-todo';
-import { reIndexProject } from './project-handler';
 import { addTodoElement } from './DOM-manipulation';
 import { swapCurrentProject } from './project-handler';
-
+import { removeProject } from './remove-project';
+import DeleteButton from './trash-can.png';
 
 function todoListPopulator(currentProject){
     const projectTodoList = currentProject.todoList;
@@ -34,7 +31,21 @@ function projectListPopulator(projectList){
         let projectButton = document.createElement('button');
         projectButton.innerText = projectList[i].title;
         projectListItem.append(projectButton);
-        projectListDisplay.append(projectListItem);   
+        
+        let projectDeleteBtn = document.createElement('button');
+        let deleteBtnImg = document.createElement('img');
+        deleteBtnImg.src = DeleteButton;
+        projectDeleteBtn.append(deleteBtnImg);
+        projectListItem.append(projectDeleteBtn);
+        projectDeleteBtn.classList.add('delete-button');
+        projectDeleteBtn.classList.add('hidden');
+
+        projectListDisplay.append(projectListItem);
+
+        projectDeleteBtn.addEventListener('click', function(){ removeProject({
+            projectElement: projectListItem,
+            projectIndex: i
+        }) });
 
         projectButton.addEventListener('click', function(){ swapCurrentProject(projectList[i]) });
     }

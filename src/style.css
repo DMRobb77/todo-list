@@ -32,12 +32,20 @@
 
 }
 
+#unlock-button-img {
+    
+}
+
 .hidden {
     display: none;
 }
 
 .visible {
     display: block;
+}
+
+.description {
+    display: none;
 }
 
 .low {

@@ -4,6 +4,7 @@ import { removeTodoElement } from "./DOM-manipulation";
 
 function removeTodo({ todoElement, todoIndex } = {}){
 
+    console.log(todoIndex);
     removeTodoElement(todoElement);
 
     let currentProject = getCurrentProject();

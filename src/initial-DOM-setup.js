@@ -3,11 +3,13 @@ import InboxIcon from './inbox-arrow.png';
 import TodayIcon from './sun-clock.png';
 import WeekIcon from './calendar-range.png';
 import PlusIcon from './plus-thick.png';
+import LockMinus from './lock-minus.png';
 import { addTodo } from './add-todo';
 import { addProject } from './add-project';
 import { projectListPopulator } from './list-populator';
 import { swapCurrentProject, getMainProjectList } from './project-handler';
 import { findDueToday, findDueThisWeek } from './todo-list-date-search';
+import { displayProjectDeleteBtns } from './DOM-manipulation';
 
 function divCreatorAppender(className, parent) {
     //Creates a div with 'className' and append it 'parent'
@@ -55,7 +57,6 @@ function sidebarSetup(sidebarDiv) {
     dueToday.append(dueTodayButton);
     dueToday.addEventListener('click', findDueToday);
 
-
     const dueThisWeek = document.createElement('li');
     const dueWeekBtn = document.createElement('button');
     const dueWeekImg = document.createElement('img');
@@ -69,8 +70,16 @@ function sidebarSetup(sidebarDiv) {
     topList.append(inbox, dueToday, dueThisWeek);
 
     //Creates a list of projects at the bottom of the sidebar
+    const bottomListHeaderDiv = document.createElement('div');
     const bottomListHeader = document.createElement('h3');
     bottomListHeader.innerText = 'Projects';
+    const bottomListUnlockBtn = document.createElement('button');
+    const unlockBtnImg = document.createElement('img');
+    unlockBtnImg.src = LockMinus;
+    unlockBtnImg.id = 'unlock-button-img';
+    bottomListUnlockBtn.append(unlockBtnImg);
+    bottomListHeaderDiv.append( bottomListHeader, bottomListUnlockBtn);
+    bottomListUnlockBtn.addEventListener('click', displayProjectDeleteBtns);
 
     const bottomList = document.createElement('ul');
     bottomList.id = 'project-list';
@@ -91,10 +100,15 @@ function sidebarSetup(sidebarDiv) {
     addProjectText.innerText = 'Add Project';
     addProjectBtn.append(addProjectImg, addProjectText);
     addProjectBtn.addEventListener('click', addProject);
+    inputProjectTitle.onkeydown = function(e){
+        if(e.key == 'Enter'){
+            addProject();
+        }
+     };
 
     sidebarDiv.append(
         topList, 
-        bottomListHeader, 
+        bottomListHeaderDiv, 
         bottomList,
         projectInputDiv,
         addProjectBtn);
@@ -129,7 +143,6 @@ function articleSetup(articleDiv) {
     const inputDueDate = document.createElement('input');
     inputDueDate.type = 'date';
     inputDueDate.id = 'date-input-box';
-    inputDueDate.value = new Date();
     taskInputDiv.append(inputTitle, inputDescription, inputPriority, inputDueDate);
 
     //Creates the button for adding tasks
