@@ -4,72 +4,64 @@ import { TodoItem, makeStorableTodo } from './todo-item';
 import Project from './project';
 import { todoListPopulator, projectListPopulator } from './list-populator';
 import { initialDOMSetup } from './initial-DOM-setup.js';
-import { setCurrentProject, setMainProjectList } from './project-handler';
+import { reIndexMainProjectList, setCurrentProject, setMainProjectList } from './project-handler';
 
+//Create a new set of default projects if one doesn't exist in storage
 
-let testNote1 = new TodoItem({
-    id: 0,
-    title: 'Test Title',
-    description: 'This is a test description',
-    dueDate: new Date("2/14/23"),
-    priority: 1
-})
+let projectList = [];
+let defaultInboxProject = [];
 
-let testNote2 = new TodoItem({
-    id: 1,
-    title: 'Another Test Title',
-    description: 'This is another test description',
-    dueDate: new Date("2/14/23"),
-    priority: 0
-})
+if (!window.localStorage.getItem('projectList')){
 
-let testNote4 = new TodoItem({
-    id: 2,
-    title: 'Another Another Test Title',
-    description: 'This is another test description',
-    dueDate: new Date("5/15/23"),
-    priority: 0
-})
+    defaultInboxProject = new Project({
+        id: 2,
+        title: 'Inbox',
+        todoList: []
+    });
 
-let testNote3 = new TodoItem({
-    id: 0,
-    title: 'Test test test',
-    description: 'Different project though',
-    dueDate: new Date("2/18/23"),
-    priority: 2
-})
+    let defaultDueTodayProject = new Project({
+        id: 0,
+        title: 'Due Today',
+        todoList: []
+    });
+    
+    let defaultDueThisWeekProject = new Project({
+        id: 1,
+        title: 'Due This Week',
+        todoList: []
+    });
+    
+    projectList = [ defaultDueTodayProject, defaultDueThisWeekProject, defaultInboxProject ];
+    window.localStorage.setItem('projectList', JSON.stringify(projectList));
 
-let defaultInboxProject = new Project({
-    id: 2,
-    title: 'Inbox',
-    todoList: [ testNote1, testNote2, testNote4 ]
-})
+} else {
+    projectList = JSON.parse(window.localStorage.getItem('projectList'));
 
-let defaultDueTodayProject = new Project({
-    id: 0,
-    title: 'Due Today',
-    todoList: []
-})
+    let reprojectedList = [];
 
-let defaultDueThisWeekProject = new Project({
-    id: 1,
-    title: 'Due This Week',
-    todoList: []
-})
+    for (let i = 0; i < projectList.length; i++){
+        let fixedProject = new Project({
+            id: projectList[i].id,
+            title: projectList[i].title,
+            todoList: projectList[i].todoList
+        })
 
-let testProject2 =  new Project({
-    id: 3,
-    title: 'Test Project 2',
-    todoList: [ testNote3 ]
-})
+        for (let i = 0; i < fixedProject.todoList.length; i++){
+            fixedProject.todoList[i].dueDate = new Date(fixedProject.todoList[i].dueDate);
+            console.log(fixedProject.todoList[i].dueDate);
+        }
 
-let projectList = [  defaultDueTodayProject, defaultDueThisWeekProject, defaultInboxProject, testProject2 ];
+        reprojectedList.push(fixedProject);
+    }
+    projectList = reprojectedList;
+
+    defaultInboxProject = reprojectedList[2];
+    //defaultInboxProject = JSON.parse(window.localStorage.getItem('inboxProject'));
+}
+
 setMainProjectList(projectList);
 
-//Testing storable
-
-window.localStorage.setItem('testProject', JSON.stringify(defaultInboxProject));
-window.localStorage.setItem('testProjectList', JSON.stringify(projectList))
+reIndexMainProjectList(projectList);
 
 setCurrentProject(defaultInboxProject);
 
@@ -78,46 +70,3 @@ initialDOMSetup();
 todoListPopulator(defaultInboxProject);
 
 projectListPopulator(projectList);
-
-
-
-/*
-let testNote2 = TodoItem();
-testNote2.setId(2);
-testNote2.setTitle('bazoople');
-testNote2.setDescription('bibalglg');
-let storableTestNote2 = makeStorableTodo(testNote2);
-
-let testProject = Project();
-testProject.setId(1);
-testProject.setNoteList([testNote1, testNote2]);
-
-
-const testProject2 = Project();
-testProject2.setTitle('Groceries');
-
-const testProject3 = Project();
-testProject3.setTitle('Work');
-
-const projectList = [testProject2, testProject3];
-
-console.log(testProject);
-
-
-const storableTestList = {
-    title: 'testProject',
-    noteList: [storableTestNote1, storableTestNote2]
-}
-
-//local storage test 
-window.localStorage.setItem('testProject', JSON.stringify(storableTestList));
-console.log(window.localStorage.getItem('testProject'));
-
-
-initialDOMSetup();
-
-todoListPopulator(testProject);
-
-projectListPopulator(projectList);
-
-*/

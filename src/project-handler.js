@@ -16,9 +16,15 @@ function setCurrentProject(currentProject){
 
 function setMainProjectList(projects){
     mainProjectList = projects;
+    window.localStorage.setItem('projectList', JSON.stringify(mainProjectList));
+}
+
+function saveAllProjects(){
+    window.localStorage.setItem('projectList', JSON.stringify(mainProjectList));
 }
 
 function getMainProjectList(){
+    console.log(mainProjectList);
     return mainProjectList;
 }
 
@@ -66,5 +72,6 @@ export {
     reIndexMainProjectList, 
     setMainProjectList,
     getMainProjectList, 
-    swapCurrentProject
+    swapCurrentProject,
+    saveAllProjects
 };

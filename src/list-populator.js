@@ -4,6 +4,7 @@ import { removeProject } from './remove-project';
 import DeleteButton from './trash-can.png';
 
 function todoListPopulator(currentProject){
+
     const projectTodoList = currentProject.todoList;
     const listDisplay = document.getElementById('task-list');
     listDisplay.innerHTML = '';
@@ -20,6 +21,7 @@ function addTodoToCurrentProject({ toDo, currentProject } = {}){
     let todoList = currentProject.todoList;
     todoList.push(toDo);
     currentProject.todoList = todoList;
+    
 }
 
 function projectListPopulator(projectList){

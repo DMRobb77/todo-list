@@ -119,7 +119,6 @@ function displayProjectDeleteBtns(){
     } else {
         unlockBtnImg.src = LockMinus;
     }
-    console.log(deleteButtons.classList);
     deleteButtons.forEach((button) => button.classList.toggle('visible'));
 }
 

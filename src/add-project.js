@@ -9,18 +9,25 @@ function addProject(){
     const inputTitle = document.getElementById('project-input-box');
     
     if (inputDiv.classList.contains('visible') && inputTitle.value){
-        let newProject = new Project({
-            id: 0,
-            title: inputTitle.value,
-            todoList: []
-        })
+
         let currentProjectList = getMainProjectList();
-        currentProjectList.push(newProject);
-        setMainProjectList(currentProjectList);
 
-        projectListPopulator(currentProjectList);
+        if (!currentProjectList.find(project => project.title == inputTitle.value )){
+            let newProject = new Project({
+                id: 0,
+                title: inputTitle.value,
+                todoList: []
+            })
 
-        reIndexMainProjectList(currentProjectList);
+            currentProjectList.push(newProject);
+
+            setMainProjectList(currentProjectList);
+    
+            projectListPopulator(currentProjectList);
+    
+            reIndexMainProjectList(currentProjectList);
+
+        }
 
         displayNewProjectInput();
 
