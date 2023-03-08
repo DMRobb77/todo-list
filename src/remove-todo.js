@@ -1,4 +1,4 @@
-import { getCurrentProject, setCurrentProject, reIndexProject } from "./project-handler";
+import { getCurrentProject, setCurrentProject, reIndexProject, saveAllProjects } from "./project-handler";
 import { removeTodoElement } from "./DOM-manipulation";
 
 
@@ -15,7 +15,7 @@ function removeTodo({ todoElement, todoIndex } = {}){
 
     reIndexProject(currentProject);
 
-    window.localStorage.setItem('testProject', JSON.stringify(currentProject));
+    saveAllProjects();
 }
 
 export { removeTodo };

@@ -6,13 +6,12 @@ import PlusIcon from './plus-thick.png';
 import LockMinus from './lock-minus.png';
 import { addTodo } from './add-todo';
 import { addProject } from './add-project';
-import { projectListPopulator } from './list-populator';
 import { swapCurrentProject, getMainProjectList } from './project-handler';
 import { findDueToday, findDueThisWeek } from './todo-list-date-search';
 import { displayProjectDeleteBtns } from './DOM-manipulation';
 
 function divCreatorAppender(className, parent) {
-    //Creates a div with 'className' and append it 'parent'
+    //Creates a div with 'className' and appends it to 'parent'
     const div = document.createElement('div');
     div.className = className;
     parent.appendChild(div);
@@ -23,6 +22,7 @@ function headerSetup(headerDiv) {
     //Creates the header and adds a logo image and title
     const logoImg = document.createElement('img');
     logoImg.src = LogoIcon;
+    logoImg.id = 'logo';
     headerDiv.appendChild(logoImg);
     const headerTitle = document.createElement('h1');
     headerTitle.innerText = 'To-do List';
@@ -33,6 +33,7 @@ function sidebarSetup(sidebarDiv) {
 
     //Creates a list of buttons at the top of the sidebar
     const topList = document.createElement('ul');
+    topList.id = 'top-list';
 
     const inbox = document.createElement('li');
     const inboxButton = document.createElement('button');
@@ -40,7 +41,7 @@ function sidebarSetup(sidebarDiv) {
     inboxImg.src = InboxIcon;
 
     const inboxProject = getMainProjectList()[2];
-    const inboxText = document.createElement('span');
+    const inboxText = document.createElement('p');
     inboxText.innerText = 'Inbox';
     inboxButton.append(inboxImg, inboxText);
     inbox.append(inboxButton);
@@ -51,7 +52,7 @@ function sidebarSetup(sidebarDiv) {
     const dueTodayButton = document.createElement('button');
     const dueTodayImg = document.createElement('img');
     dueTodayImg.src = TodayIcon;
-    const dueTodayText = document.createElement('span');
+    const dueTodayText = document.createElement('p');
     dueTodayText.innerText = 'Due Today';
     dueTodayButton.append(dueTodayImg, dueTodayText);
     dueToday.append(dueTodayButton);
@@ -61,7 +62,7 @@ function sidebarSetup(sidebarDiv) {
     const dueWeekBtn = document.createElement('button');
     const dueWeekImg = document.createElement('img');
     dueWeekImg.src = WeekIcon;
-    const dueWeekText = document.createElement('span');
+    const dueWeekText = document.createElement('p');
     dueWeekText.innerText = 'Due This Week';
     dueWeekBtn.append(dueWeekImg, dueWeekText);
     dueThisWeek.append(dueWeekBtn);
@@ -71,9 +72,11 @@ function sidebarSetup(sidebarDiv) {
 
     //Creates a list of projects at the bottom of the sidebar
     const bottomListHeaderDiv = document.createElement('div');
+    bottomListHeaderDiv.id = 'project-header';
     const bottomListHeader = document.createElement('h3');
     bottomListHeader.innerText = 'Projects';
     const bottomListUnlockBtn = document.createElement('button');
+    bottomListUnlockBtn.id = 'unlock-button';
     const unlockBtnImg = document.createElement('img');
     unlockBtnImg.src = LockMinus;
     unlockBtnImg.id = 'unlock-button-img';
@@ -94,9 +97,10 @@ function sidebarSetup(sidebarDiv) {
     projectInputDiv.append(inputProjectTitle);
 
     const addProjectBtn = document.createElement('button');
+    addProjectBtn.id = 'add-project';
     const addProjectImg = document.createElement('img');
     addProjectImg.src = PlusIcon;
-    const addProjectText = document.createElement('span');
+    const addProjectText = document.createElement('p');
     addProjectText.innerText = 'Add Project';
     addProjectBtn.append(addProjectImg, addProjectText);
     addProjectBtn.addEventListener('click', addProject);
@@ -114,18 +118,12 @@ function sidebarSetup(sidebarDiv) {
         addProjectBtn);
 }
 
-function articleSetup(articleDiv) {
-    const articleHeader = document.createElement('h2');
-    articleHeader.id = 'article-header';
-    articleHeader.innerText = 'Inbox';
 
-    const taskList = document.createElement('ul');
-    taskList.id = 'task-list';
+function createTaskInputBox(enterKeyPress){
 
     //Creates the task input box
     const taskInputDiv = document.createElement('div');
     taskInputDiv.id = 'task-input';
-    taskInputDiv.classList = 'hidden';
     const inputTitle = document.createElement('input');
     inputTitle.type = 'text';
     inputTitle.id = 'title-input-box';
@@ -144,6 +142,41 @@ function articleSetup(articleDiv) {
     inputDueDate.type = 'date';
     inputDueDate.id = 'date-input-box';
     taskInputDiv.append(inputTitle, inputDescription, inputPriority, inputDueDate);
+
+    inputTitle.onkeydown = function(e){
+        if(e.key == 'Enter'){
+            enterKeyPress();
+        }
+     };
+    
+    inputDescription.onkeydown = function(e){
+        if(e.key == 'Enter'){
+            enterKeyPress();
+        }
+     };
+
+    inputDueDate.onkeydown = function(e){
+        if(e.key == 'Enter'){
+            enterKeyPress();
+        }
+     };
+
+     return taskInputDiv;
+
+}
+
+
+function articleSetup(articleDiv) {
+    const articleHeader = document.createElement('h2');
+    articleHeader.id = 'article-header';
+    articleHeader.innerText = 'Inbox';
+
+    const taskList = document.createElement('ul');
+    taskList.id = 'task-list';
+
+
+    const taskInputDiv = createTaskInputBox(addTodo);
+    taskInputDiv.classList = 'hidden';
 
     //Creates the button for adding tasks
     const addTaskButton = document.createElement('button');
@@ -179,4 +212,4 @@ function initialDOMSetup() {
     articleSetup(article);
 }
 
-export { initialDOMSetup };
+export { initialDOMSetup, createTaskInputBox };

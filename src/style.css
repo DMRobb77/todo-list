@@ -1,3 +1,18 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('./Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('./Roboto-Bold.ttf');
+    font-weight: bold;
+}
+
+
+li {
+    list-style: none;
+}
 
 #content {
     height: 100vh;
@@ -6,13 +21,10 @@
     grid-template-rows: 10rem 1fr 2rem;
 }
 
-.header {
-    background-color: rgb(71, 75, 77);
-}
-
 .main {
     display: grid;
     grid-template-columns: 18% 1fr;
+    font-family: 'Roboto';
 }
 
 .footer {
@@ -24,16 +36,198 @@
     min-width: 250px;
 }
 
-.article {
+
+/*  Header  */
+
+.header {
+    background-color: rgb(71, 75, 77);
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    padding-left: 5rem;
+    font-family: 'Roboto';
+    font-weight: bold;
+}
+
+
+.header h1 {
+    font-size: 3.2rem;
+    margin: auto 0;
+    padding-left: 2rem;
+}
+
+#logo {
+    width: 6rem;
+    margin: auto 0;
+    filter: invert(1);
+}
+
+
+/*  Sidebar  */
+
+.sidebar > * {
+    margin-left: 15%;
+}
+
+.sidebar > ul {
+    padding-left: 0;
+}
+
+#top-list {
+    padding-top: 1rem;
+}
+
+#top-list li {
+    margin: 1rem 0;
+}
+
+#top-list button {
+    width: 75%;
+    min-width: 8rem;
+    font-size: 1.2rem;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 30% 1fr;
+}
+
+#top-list button p {
+    margin-right: 0.8rem;
+    margin-left: 0.8rem;
+    justify-self: flex-start;
+    justify-content: flex-start;
+}
+
+#top-list img {
+    filter: invert(1);
+    align-self: center;
+    justify-self: flex-end;
+}
+
+#project-header {
+    display: grid;
+    grid-template-columns: 8rem 4rem;
+    margin-top: 3rem;
+    margin-bottom: -1.4rem;
+}
+
+#project-header h3 {
+    font-size: 2rem;
 
 }
 
-#task-input {
-
+#unlock-button{
+    align-self: center;
+    max-height: 2.4rem;
+    max-width: 3rem;
+    border-style: none;
+    background-color: rgba(255, 255, 255, 0);
 }
 
 #unlock-button-img {
-    
+    max-width: 2rem;
+}
+
+#project-list {
+    margin-right: 0.8rem;
+}
+
+#project-list li {
+    display: grid;
+    font-size: 1.2rem;
+    grid-template-columns: 1fr 4.5rem;
+    height: 3rem;
+    margin: 0.6rem auto;
+}
+
+.delete-button {
+    align-self: center;
+    max-height: 2.4rem;
+    max-width: 3rem;
+    border-style: none;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.delete-button img {
+    max-width: 2rem;
+}
+
+#project-input {
+
+}
+
+#project-input input {
+    border-style: none;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    width: 69%;
+    min-width: 8rem;
+    margin-bottom: 0.8rem;
+}
+
+#add-project {
+    font-size: 1.2rem;
+    min-width: 8rem;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    padding: 0 0.8rem;
+}
+
+#add-project img {
+    filter: invert(1);
+    margin: auto 0;
+    align-self: center;
+    padding: 0 0.4rem;
+}
+
+#add-project p {
+    margin-left: 0;
+    justify-self: baseline;
+}
+
+
+/* Article */
+
+.article {
+    margin: 0.5rem 10%;
+}
+
+#article-header {
+    font-size: 2rem;
+}
+
+#task-list {
+    margin: 0;
+    padding: 0;
+    width: 85%;
+}
+
+#task-list li {
+    display: grid;
+    grid-template-columns: 3rem 1fr 3rem;
+    font-size: 1.2rem;
+}
+
+#task-list img {
+    width: 2rem;
+}
+
+#title-and-description * {
+    text-align: left;
+}
+
+#todo-date {
+    justify-content: flex-end;
+    text-align: center;
+}
+
+#expand-task {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 10rem;
+}
+
+#expand-task span{
+    font-size: 1.2rem;
 }
 
 .hidden {

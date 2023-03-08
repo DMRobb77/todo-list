@@ -24,7 +24,6 @@ function saveAllProjects(){
 }
 
 function getMainProjectList(){
-    console.log(mainProjectList);
     return mainProjectList;
 }
 

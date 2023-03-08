@@ -48,7 +48,6 @@ if (!window.localStorage.getItem('projectList')){
 
         for (let i = 0; i < fixedProject.todoList.length; i++){
             fixedProject.todoList[i].dueDate = new Date(fixedProject.todoList[i].dueDate);
-            console.log(fixedProject.todoList[i].dueDate);
         }
 
         reprojectedList.push(fixedProject);
@@ -56,7 +55,6 @@ if (!window.localStorage.getItem('projectList')){
     projectList = reprojectedList;
 
     defaultInboxProject = reprojectedList[2];
-    //defaultInboxProject = JSON.parse(window.localStorage.getItem('inboxProject'));
 }
 
 setMainProjectList(projectList);

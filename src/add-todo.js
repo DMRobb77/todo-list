@@ -17,7 +17,6 @@ function addTodo(){
         //Refresh the article view so the new note pops up
         //Clear the input and hide the boxes
 
-
         let newTodo = new TodoItem({
             title: taskTitle.value,
             description: taskDescription.value,
@@ -26,8 +25,6 @@ function addTodo(){
         });
 
         let testProject = getCurrentProject();
-
-        //JSON.parse(window.localStorage.getItem('testProject'));
 
         addTodoToCurrentProject({ toDo: newTodo, currentProject: testProject});
 
@@ -69,4 +66,4 @@ function clearInputBoxes() {
 }
 
 
-export { addTodo, clearInputBoxes };
+export { addTodo, clearInputBoxes, offsetDateTimezone };

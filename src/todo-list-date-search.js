@@ -1,9 +1,6 @@
 import { getMainProjectList } from "./project-handler";
 import { format, isSameWeek } from 'date-fns';
-import Project from "./project";
-import { todoListPopulator } from "./list-populator";
 import { swapCurrentProject } from "./project-handler";
-import { toggleAddTaskButton } from "./DOM-manipulation";
 
 function concatAllTodos(){
     let allProjects = getMainProjectList();

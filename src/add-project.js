@@ -33,12 +33,10 @@ function addProject(){
 
         inputTitle.value = '';
 
-
     } else {
         displayNewProjectInput();
     }
     
 }
-
 
 export { addProject };
