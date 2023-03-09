@@ -24,6 +24,12 @@ function addTodoToCurrentProject({ toDo, currentProject } = {}){
     
 }
 
+function insertTodoAtIndex({ toDo, currentProject, index } = {}){
+    let todoList = currentProject.todoList;
+    todoList.splice(index, 1, toDo);
+    currentProject.todoList = todoList;
+}
+
 function projectListPopulator(projectList){
     const projectListDisplay = document.getElementById('project-list');
     projectListDisplay.innerHTML = '';
@@ -53,4 +59,4 @@ function projectListPopulator(projectList){
     }
 }
 
-export { todoListPopulator, addTodoToCurrentProject, projectListPopulator };
+export { todoListPopulator, addTodoToCurrentProject, projectListPopulator, insertTodoAtIndex };

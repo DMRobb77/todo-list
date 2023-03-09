@@ -24,13 +24,13 @@ function addTodo(){
             priority: parseInt(taskPriority.value)
         });
 
-        let testProject = getCurrentProject();
+        let currentProject = getCurrentProject();
 
-        addTodoToCurrentProject({ toDo: newTodo, currentProject: testProject});
+        addTodoToCurrentProject({ toDo: newTodo, currentProject: currentProject});
 
-        todoListPopulator(testProject);
+        todoListPopulator(currentProject);
         
-        reIndexProject(testProject);
+        reIndexProject(currentProject);
 
         saveAllProjects();
 

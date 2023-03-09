@@ -1,5 +1,5 @@
 import { todoListPopulator } from "./list-populator";
-import { changeArticleHeader, displayTodoInput } from "./DOM-manipulation";
+import { changeArticleHeader, displayTodoInput, toggleEditTaskButtons } from "./DOM-manipulation";
 import { toggleAddTaskButton } from "./DOM-manipulation";
 
 let projectHolder = {};
@@ -52,7 +52,9 @@ function swapCurrentProject(newCurrentProject){
 
         if (newCurrentProject.id == 0 || newCurrentProject.id == 1){
             toggleAddTaskButton(false);
+            toggleEditTaskButtons(false);
         } else {
+            toggleAddTaskButton(true);
             toggleAddTaskButton(true);
         }
     }

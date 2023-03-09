@@ -14,6 +14,7 @@ function displayTodoInput(){
     taskInput.classList.toggle('visible');
     taskInput.firstChild.focus();
     clearInputBoxes();
+    hideAndSubmitEditedTodo();
 }
 
 function displayNewProjectInput(){
@@ -79,25 +80,25 @@ function createEditBoxes(){
     taskEditDiv.append(editTitle, editDescription, editPriority, editDueDate);
 
 
-    /*
+    
     editTitle.onkeydown = function(e){
         if(e.key == 'Enter'){
-            enterKeyPress();
+            hideAndSubmitEditedTodo();
         }
         };
     
     editDescription.onkeydown = function(e){
         if(e.key == 'Enter'){
-            enterKeyPress();
+            hideAndSubmitEditedTodo();
         }
         };
 
     editDueDate.onkeydown = function(e){
         if(e.key == 'Enter'){
-            enterKeyPress();
+            hideAndSubmitEditedTodo();
         }
         };
-        */
+
         return taskEditDiv;
 
 
@@ -107,10 +108,27 @@ function createEditBoxes(){
 function showTodoEdtiable(todoElement, originalTodo){
 
     let editableTodo = createEditBoxes();
+    
+    console.log(`The previous prio was ${originalTodo.priority}`);
+
+    switch (originalTodo.priority){
+        case `🟩 Low`:
+            editableTodo.children[2].selectedIndex = 2;
+            break;
+        case `🟨 Medium`:
+            editableTodo.children[2].selectedIndex = 1;
+            break;
+        case `🟥 High`:
+            editableTodo.children[2].selectedIndex = 0;
+            break;
+        default:
+            console.log(`Priority couldn't be converted.`);
+            break;
+    }
 
     editableTodo.children[0].defaultValue = originalTodo.title;
     editableTodo.children[1].defaultValue = originalTodo.description;
-    editableTodo.children[2].defaultValue = originalTodo.priority;
+    //editableTodo.children[2].selectedIndex = originalTodo.priority;
     editableTodo.children[3].defaultValue = originalTodo.dueDate;
 
     let listItem = todoElement.parentNode.parentNode;
@@ -153,8 +171,6 @@ function editTodo(todoButton){
     } else {
         hideAndSubmitEditedTodo();
     }
-
-
 
 }
 
@@ -200,7 +216,7 @@ function addTodoElement({ todo, listDisplay} = {}){
 
 
     const editButton = document.createElement('button');
-    editButton.id = 'edit';
+    editButton.classList.add('edit');
 
 
     expandButtonDiv.append(titleAndDescription, todoPriority, todoDate);
@@ -222,6 +238,19 @@ function addTodoElement({ todo, listDisplay} = {}){
 function changeArticleHeader(project){
     const articleHeader = document.getElementById('article-header');
     articleHeader.innerText = project.title;
+}
+
+function toggleEditTaskButtons(buttonDisplay){
+    let editButtons = document.getElementsByClassName('edit');
+
+    for (let i = 0; i < editButtons.length; i++){
+        if(!buttonDisplay){
+
+            editButtons[i].classList.add('hidden');
+        } else if (buttonDisplay){
+            editButtons[i].classList.remove('hidden');
+        }
+    }
 }
 
 function toggleAddTaskButton(buttonDisplay){
@@ -257,6 +286,7 @@ export {
     removeTodoElement, 
     addTodoElement, 
     changeArticleHeader,
+    toggleEditTaskButtons,
     toggleAddTaskButton,
     displayNewProjectInput,
     displayProjectDeleteBtns };
