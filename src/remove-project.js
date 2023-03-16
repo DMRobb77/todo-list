@@ -1,7 +1,5 @@
 import { getMainProjectList, reIndexMainProjectList, setMainProjectList, swapCurrentProject } from "./project-handler";
 
-
-
 function removeProject({ projectElement, projectIndex } = {}){
     projectElement.remove();
 
@@ -9,6 +7,10 @@ function removeProject({ projectElement, projectIndex } = {}){
     projectList.splice(projectIndex, 1);
     setMainProjectList(projectList);
     reIndexMainProjectList(projectList);
+
+    console.log(`Index is ${projectIndex}`);
+
+    console.log(projectList);
 
     swapCurrentProject(projectList[2]);
 }

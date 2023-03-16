@@ -38,7 +38,6 @@ function addTodo(){
 
         clearInputBoxes();
 
-
     } else {
         displayTodoInput();
     }

@@ -21,7 +21,7 @@ function getFormattedToday(){
 }
 
 
-function findDueToday(){
+function findDueToday(e){
     let allTodos = concatAllTodos();
     let dueToday = [];
     let dateToday = getFormattedToday();
@@ -33,14 +33,13 @@ function findDueToday(){
             dueToday.push(allTodos[i]);
         }
     }
-
     dueTodayProject.todoList = dueToday;
     
-    swapCurrentProject(dueTodayProject);
+    swapCurrentProject(dueTodayProject, e);
 
 }
 
-function findDueThisWeek(){
+function findDueThisWeek(e){
     let allTodos = concatAllTodos();
     let dueThisWeek = [];
     let dateToday = new Date();
@@ -54,7 +53,7 @@ function findDueThisWeek(){
 
     dueThisWeekProject.todoList = dueThisWeek;
 
-    swapCurrentProject(dueThisWeekProject);
+    swapCurrentProject(dueThisWeekProject, e);
 
 }
 

@@ -1,7 +1,7 @@
 import { addTodoElement } from './DOM-manipulation';
 import { swapCurrentProject } from './project-handler';
 import { removeProject } from './remove-project';
-import DeleteButton from './trash-can.png';
+import OpenLock from './lock-open-minus.png';
 
 function todoListPopulator(currentProject){
 
@@ -21,7 +21,6 @@ function addTodoToCurrentProject({ toDo, currentProject } = {}){
     let todoList = currentProject.todoList;
     todoList.push(toDo);
     currentProject.todoList = todoList;
-    
 }
 
 function insertTodoAtIndex({ toDo, currentProject, index } = {}){
@@ -34,6 +33,8 @@ function projectListPopulator(projectList){
     const projectListDisplay = document.getElementById('project-list');
     projectListDisplay.innerHTML = '';
 
+    console.log(projectList);
+
     for (let i = 3; i < projectList.length; i++){
         let projectListItem = document.createElement('li');
         let projectButton = document.createElement('button');
@@ -41,12 +42,13 @@ function projectListPopulator(projectList){
         projectListItem.append(projectButton);
         
         let projectDeleteBtn = document.createElement('button');
-        let deleteBtnImg = document.createElement('img');
-        deleteBtnImg.src = DeleteButton;
-        projectDeleteBtn.append(deleteBtnImg);
         projectListItem.append(projectDeleteBtn);
         projectDeleteBtn.classList.add('delete-button');
-        projectDeleteBtn.classList.add('hidden');
+
+        let unlockBtnImg = document.getElementById('unlock-button-img');
+        if (unlockBtnImg.src != OpenLock){
+            projectDeleteBtn.classList.add('hidden');
+        }
 
         projectListDisplay.append(projectListItem);
 
@@ -55,7 +57,7 @@ function projectListPopulator(projectList){
             projectIndex: i
         }) });
 
-        projectButton.addEventListener('click', function(){ swapCurrentProject(projectList[i]) });
+        projectButton.addEventListener('click', function(event){ swapCurrentProject(projectList[i], event)});
     }
 }
 

@@ -41,14 +41,22 @@ function reIndexProject(currentProject){
         projectTodoList[i].id = [i];
     }
     projectHolder.todoList = projectTodoList;
-
 }
 
-function swapCurrentProject(newCurrentProject){
+function swapCurrentProject(newCurrentProject, event){
     if (newCurrentProject && newCurrentProject != getCurrentProject()){
         setCurrentProject(newCurrentProject);
         todoListPopulator(newCurrentProject);   
         changeArticleHeader(newCurrentProject);
+
+        let styledButtons = document.querySelectorAll('.active-project');
+        for (let i = 0; i < styledButtons.length; i++){
+            styledButtons[i].classList.remove('active-project');
+        }
+        if (event && event.target.closest('button')){
+            let button  = event.target.closest('button');
+            button.classList.add('active-project');
+        } 
 
         if (newCurrentProject.id == 0 || newCurrentProject.id == 1){
             toggleAddTaskButton(false);
@@ -56,7 +64,7 @@ function swapCurrentProject(newCurrentProject){
         } else {
             toggleAddTaskButton(true);
             toggleAddTaskButton(true);
-        }
+        } 
     }
 
     const todoInputBox = document.getElementById('task-input');

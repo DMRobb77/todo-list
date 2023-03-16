@@ -1,13 +1,10 @@
-import BlankCheckbox from './checkbox-blank-outline.png';
 import { removeTodo } from './remove-todo';
 import { format } from 'date-fns';
 import { clearInputBoxes } from './add-todo';
 import LockMinus from './lock-minus.png';
 import OpenLock from './lock-open-minus.png';
 import { TodoItem } from './todo-item';
-import { createTaskInputBox } from './initial-DOM-setup';
 import { submitEditedTodo } from './modify-todo';
-
 
 function displayTodoInput(){
     const taskInput = document.getElementById('task-input');
@@ -18,6 +15,7 @@ function displayTodoInput(){
 }
 
 function displayNewProjectInput(){
+
     const inputDiv = document.getElementById('project-input');
     inputDiv.classList.toggle('visible');
     inputDiv.firstChild.focus();
@@ -38,9 +36,7 @@ function formatPriority(prio){
         default:
             console.log('Priority was not set correctly');
             break;
-        
     }
-
     return formattedPrio;
 }
 
@@ -55,17 +51,18 @@ function displayTodoDescription(e){
     }
 }
 
-
 function createEditBoxes(){
-    //Creates the task input box
+
     let taskEditDiv = document.createElement('div');
     taskEditDiv.id = 'task-edit';
     let editTitle = document.createElement('input');
     editTitle.type = 'text';
     editTitle.id = 'title-edit-box';
+    editTitle.maxLength = 48;
     let editDescription = document.createElement('input');
     editDescription.type = 'text';
     editDescription.id = 'description-edit-box';
+    editDescription.maxLength = 68;
     let editPriority = document.createElement('select');
     editPriority.innerHTML = 
         `
@@ -79,8 +76,6 @@ function createEditBoxes(){
     editDueDate.id = 'date-edit-box';
     taskEditDiv.append(editTitle, editDescription, editPriority, editDueDate);
 
-
-    
     editTitle.onkeydown = function(e){
         if(e.key == 'Enter'){
             hideAndSubmitEditedTodo();
@@ -100,17 +95,12 @@ function createEditBoxes(){
         };
 
         return taskEditDiv;
-
-
 }
-
 
 function showTodoEdtiable(todoElement, originalTodo){
 
     let editableTodo = createEditBoxes();
     
-    console.log(`The previous prio was ${originalTodo.priority}`);
-
     switch (originalTodo.priority){
         case `🟩 Low`:
             editableTodo.children[2].selectedIndex = 2;
@@ -128,7 +118,6 @@ function showTodoEdtiable(todoElement, originalTodo){
 
     editableTodo.children[0].defaultValue = originalTodo.title;
     editableTodo.children[1].defaultValue = originalTodo.description;
-    //editableTodo.children[2].selectedIndex = originalTodo.priority;
     editableTodo.children[3].defaultValue = originalTodo.dueDate;
 
     let listItem = todoElement.parentNode.parentNode;
@@ -136,16 +125,13 @@ function showTodoEdtiable(todoElement, originalTodo){
     listItem.insertBefore(editableTodo, listItem.children[2]);
 
     todoElement.parentNode.remove();
-
 }
 
 function hideAndSubmitEditedTodo(){
     submitEditedTodo();
-
 }
 
 function editTodo(todoButton){
-
 
     if (!document.getElementById('task-edit')){
 
@@ -171,15 +157,13 @@ function editTodo(todoButton){
     } else {
         hideAndSubmitEditedTodo();
     }
-
 }
 
 function addTodoElement({ todo, listDisplay} = {}){
     const listItem = document.createElement('li');
+
     const doneButton = document.createElement('button');
-    const emptyBoxImg = document.createElement('img');
-    emptyBoxImg.src = BlankCheckbox;
-    doneButton.append(emptyBoxImg);
+    doneButton.classList.add('remove-task');
     
     const expandButton = document.createElement('button');
     const expandButtonDiv = document.createElement('div');
@@ -205,6 +189,7 @@ function addTodoElement({ todo, listDisplay} = {}){
 
     const todoPriority = document.createElement('p');
     todoPriority.innerText = formatPriority(todo.priority);
+    todoPriority.id = 'todo-prio';
     const todoDate = document.createElement('p');
     todoDate.id = 'todo-date';
 
@@ -214,10 +199,8 @@ function addTodoElement({ todo, listDisplay} = {}){
     }
     todoDate.innerText = format(todo.dueDate, 'MMMM do, yyyy');
 
-
     const editButton = document.createElement('button');
     editButton.classList.add('edit');
-
 
     expandButtonDiv.append(titleAndDescription, todoPriority, todoDate);
     expandButton.addEventListener('click', function(event){ displayTodoDescription(event) })
@@ -272,14 +255,18 @@ function removeTodoElement(todo){
 function displayProjectDeleteBtns(){
     let deleteButtons = document.querySelectorAll('.delete-button');
     let unlockBtnImg = document.getElementById('unlock-button-img');
+
     if (unlockBtnImg.src == LockMinus){
         unlockBtnImg.src = OpenLock;
+        deleteButtons.forEach((button) => button.classList.remove('hidden'));
+        deleteButtons.forEach((button) => button.classList.add('visible'));
     } else {
         unlockBtnImg.src = LockMinus;
+        deleteButtons.forEach((button) => button.classList.add('hidden'));
+        deleteButtons.forEach((button) => button.classList.remove('visible'));
     }
-    deleteButtons.forEach((button) => button.classList.toggle('visible'));
-}
 
+}
 
 export { 
     displayTodoInput, 

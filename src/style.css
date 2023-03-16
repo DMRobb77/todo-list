@@ -1,3 +1,11 @@
+:root {
+    --dark-blue: #181E31;
+    --light-blue:#647F98;
+    --off-white: #f7f7f7;
+    --purple: #492D5A;
+}
+
+
 @font-face {
     font-family: 'Roboto';
     src: url('./Roboto-Regular.ttf');
@@ -22,6 +30,7 @@ li {
 }
 
 .main {
+    background-color: rgb(221, 221, 221);
     display: grid;
     grid-template-columns: 18% 1fr;
     font-family: 'Roboto';
@@ -29,23 +38,30 @@ li {
 
 .footer {
     background-color: rgb(71, 75, 77);
+    z-index: 1;
 }
 
 .sidebar {
-    background-color: rgb(149, 153, 155);
+    background-color: var(--light-blue);
     min-width: 250px;
+    box-shadow: 3px 5px 3px 1px rgba(0, 0, 0, 0.315);
+    z-index: 1;
 }
 
 
 /*  Header  */
 
 .header {
-    background-color: rgb(71, 75, 77);
+    background: linear-gradient(236deg, var(--dark-blue) 0%, rgba(43,83,112,1) 100%);
     display: grid;
     grid-template-columns: 7rem 1fr;
     padding-left: 5rem;
+    border: none;
+    color: white;
     font-family: 'Roboto';
     font-weight: bold;
+    z-index: 1;
+    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.315);
 }
 
 
@@ -87,6 +103,10 @@ li {
     justify-content: center;
     display: grid;
     grid-template-columns: 30% 1fr;
+    background-color: var(--purple);
+    border-style: none;
+    border-radius: 5px;
+    color: white;
 }
 
 #top-list button p {
@@ -96,8 +116,16 @@ li {
     justify-content: flex-start;
 }
 
+#top-list button:hover {
+    transform: scale(1.05);
+    transition: ease-in-out;
+    transition-duration: 100ms;
+    font-weight: bold;
+    color: white;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.219);
+}
+
 #top-list img {
-    filter: invert(1);
     align-self: center;
     justify-self: flex-end;
 }
@@ -122,61 +150,110 @@ li {
     background-color: rgba(255, 255, 255, 0);
 }
 
+#unlock-button:hover, .delete-button:hover {
+    filter: invert(1);
+    transition: ease-in-out;
+    transition-duration: 150ms;
+}
+
 #unlock-button-img {
     max-width: 2rem;
 }
 
 #project-list {
     margin-right: 0.8rem;
+    width: 75%;
 }
 
 #project-list li {
     display: grid;
+    grid-template-columns: 1fr 2rem;
+    align-items: center;
     font-size: 1.2rem;
-    grid-template-columns: 1fr 4.5rem;
-    height: 3rem;
-    margin: 0.6rem auto;
+    min-height: 3rem;
+    margin: 0.8rem auto;
+    word-break: break-all;
+    inline-size: 100%;
+    hyphens: auto;
+}
+
+#project-list li button {
+    border-style: none;
+    font-size: 1.2rem;
+    padding: 0.6rem 0.4rem;
+    border-radius: 4px;
+}
+
+#project-list li button:hover {
+    transform: scale(1.05);
+    transition: ease-in-out;
+    transition-duration: 100ms;
+    background-color: var(--purple);
+    font-weight: bold;
+    color: white;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.219);
+}
+
+.active-project {
+    background-color: var(--dark-blue) !important;
+    color: white;
+    transition: ease-in-out;
+    transition-duration: 200ms;
+    font-weight: bold;
+    transform: scale(1.05);
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.219);
 }
 
 .delete-button {
-    align-self: center;
-    max-height: 2.4rem;
-    max-width: 3rem;
     border-style: none;
+    margin-left: 0.4rem;
+    height: 2rem;
+    width: 2rem;
+    background-image: url('./trash-can.png');
+    background-size: contain;
+    background-repeat: no-repeat;
     background-color: rgba(255, 255, 255, 0);
 }
 
-.delete-button img {
-    max-width: 2rem;
-}
-
-#project-input {
-
-}
-
-#project-input input {
-    border-style: none;
+#project-input input[type=text] {
+    border-style: solid;
     border-radius: 3px;
+    border-width: 4px;
+    border-color: var(--purple);
     font-size: 1.2rem;
     padding: 0.5rem;
     width: 69%;
+    height: 2rem;
     min-width: 8rem;
     margin-bottom: 0.8rem;
 }
 
+#project-input input[type=text]:focus {
+    outline-color: var(--purple);
+}
+
 #add-project {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    font-weight: bold;
     min-width: 8rem;
+    width: 70%;
+    margin: 2rem 18% 4rem 13%;
+    height: 5rem;
     justify-content: center;
+    align-items: center;
     display: grid;
-    grid-template-columns: 30% 1fr;
-    padding: 0 0.8rem;
+    grid-template-columns: 33% 1fr;
+    padding: 0 0.4rem;
+    background-color: var(--purple);
+    border-style: none;
+    border-radius: 5px;
+    color: white;
+
 }
 
 #add-project img {
-    filter: invert(1);
     margin: auto 0;
-    align-self: center;
+    justify-self: flex-end;
     padding: 0 0.4rem;
 }
 
@@ -185,7 +262,6 @@ li {
     justify-self: baseline;
 }
 
-
 /* Article */
 
 .article {
@@ -193,24 +269,75 @@ li {
 }
 
 #article-header {
-    font-size: 2rem;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--dark-blue);
 }
 
 #task-list {
     margin: 0;
     padding: 0;
-    width: 85%;
+    max-width: 85%;
+    min-width: 45rem;
 }
 
 #task-list li {
     display: grid;
     grid-template-columns: 3rem 1fr 3rem;
     font-size: 1.2rem;
+    margin: 1rem 0;
+    background-color: var(--off-white);
+
+}
+
+#todo-title {
+    word-break: break-all;
+    inline-size: 80%;
+    hyphens: auto;
+}
+
+#task-list li:hover {
+    transform: scale(1.02);
+    transition: ease-in-out;
+    transition-duration: 80ms;
+    box-shadow: 3px 3px 4px 2px rgba(0, 0, 0, 0.199);
+}
+
+#task-list button {
+    border-style: none;
+    background-color: var(--off-white);
 }
 
 #task-list img {
     width: 2rem;
 }
+
+#task-edit, #task-input {
+    display: grid;
+    grid-template-columns: 1fr 1fr 10rem 10rem;
+    font-size: 1.2rem;
+    height: 3.9rem;
+    align-items: center;
+    margin: 0 0.5rem 0 0;
+    background-color: var(--off-white);
+}
+
+#task-edit input, #priority-edit-box, #task-input input {
+    height: 2rem;
+    margin: 0 0.5rem;
+}
+
+#task-edit input[type=text], #task-input[type=text]{
+    padding-left: 0.4rem;
+}
+
+
+#task-input {
+    max-width: 85%;
+    min-width: 43rem;
+
+}
+
 
 #title-and-description * {
     text-align: left;
@@ -223,19 +350,79 @@ li {
 
 #expand-task {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 10rem;
+    grid-template-columns: 1fr 12rem 12rem;
 }
 
 #expand-task span{
     font-size: 1.2rem;
 }
 
+.remove-task {
+    background-image: url('./checkbox-blank-outline.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 2rem;
+}
+
+.remove-task:hover {
+    background-image: url('./checkbox-intermediate.png');
+    background-size: 2.3rem;
+}
+
+.edit {
+    background-image: url('./pencil.png');
+    background-size: 2rem;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.edit:hover {
+    background-size: 2.3rem;
+}
+
+#add-task-btn {
+    margin-left: 30%;
+    margin-bottom: 3rem;
+    margin-top: 2rem;
+    width: 20rem;
+    height: 5rem;
+    background-color: var(--purple);
+    border-style: none;
+    border-radius: 5px;
+    color: white;
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+}
+
+#add-task-btn * {
+    align-self: center;
+}
+
+#add-task-btn p {
+    justify-self: flex-start;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+#add-task-btn img {
+    justify-self: center;
+}
+
+#add-task-btn:hover, #add-project:hover {
+    transform: scale(1.04);
+    transition: ease-in-out;
+    transition-duration: 100ms;
+    box-shadow: 5px 5px 6px 3px rgba(0, 0, 0, 0.267);
+    background: rgb(73,45,90);
+    background: linear-gradient(90deg, rgba(158,104,193,1) 0%, rgb(105, 70, 128) 100%);
+}
+
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .visible {
-    display: block;
+    display: grid !important;
 }
 
 .description {

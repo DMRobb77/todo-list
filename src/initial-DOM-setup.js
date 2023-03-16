@@ -37,6 +37,7 @@ function sidebarSetup(sidebarDiv) {
 
     const inbox = document.createElement('li');
     const inboxButton = document.createElement('button');
+    inboxButton.classList.add('active-project');
     const inboxImg = document.createElement('img');
     inboxImg.src = InboxIcon;
 
@@ -45,8 +46,7 @@ function sidebarSetup(sidebarDiv) {
     inboxText.innerText = 'Inbox';
     inboxButton.append(inboxImg, inboxText);
     inbox.append(inboxButton);
-    inboxButton.addEventListener('click', function(){
-        swapCurrentProject(inboxProject)});
+    inboxButton.addEventListener('click', function(event){swapCurrentProject(inboxProject, event)});
 
     const dueToday = document.createElement('li');
     const dueTodayButton = document.createElement('button');
@@ -56,7 +56,7 @@ function sidebarSetup(sidebarDiv) {
     dueTodayText.innerText = 'Due Today';
     dueTodayButton.append(dueTodayImg, dueTodayText);
     dueToday.append(dueTodayButton);
-    dueToday.addEventListener('click', findDueToday);
+    dueToday.addEventListener('click', function(event){ findDueToday(event)});
 
     const dueThisWeek = document.createElement('li');
     const dueWeekBtn = document.createElement('button');
@@ -66,7 +66,7 @@ function sidebarSetup(sidebarDiv) {
     dueWeekText.innerText = 'Due This Week';
     dueWeekBtn.append(dueWeekImg, dueWeekText);
     dueThisWeek.append(dueWeekBtn);
-    dueWeekBtn.addEventListener('click', findDueThisWeek);
+    dueWeekBtn.addEventListener('click', function(event){ findDueThisWeek(event)});
 
     topList.append(inbox, dueToday, dueThisWeek);
 
@@ -94,6 +94,7 @@ function sidebarSetup(sidebarDiv) {
     const inputProjectTitle = document.createElement('input');
     inputProjectTitle.type = 'text';
     inputProjectTitle.id = 'project-input-box';
+    inputProjectTitle.maxLength = 38;
     projectInputDiv.append(inputProjectTitle);
 
     const addProjectBtn = document.createElement('button');
@@ -127,9 +128,11 @@ function createTaskInputBox(enterKeyPress){
     const inputTitle = document.createElement('input');
     inputTitle.type = 'text';
     inputTitle.id = 'title-input-box';
+    inputTitle.maxLength = 48;
     const inputDescription = document.createElement('input');
     inputDescription.type = 'text';
     inputDescription.id = 'description-input-box';
+    inputDescription.maxLength = 68;
     const inputPriority = document.createElement('select');
     inputPriority.innerHTML = 
         `
@@ -173,8 +176,7 @@ function articleSetup(articleDiv) {
 
     const taskList = document.createElement('ul');
     taskList.id = 'task-list';
-
-
+    
     const taskInputDiv = createTaskInputBox(addTodo);
     taskInputDiv.classList = 'hidden';
 
@@ -183,7 +185,7 @@ function articleSetup(articleDiv) {
     addTaskButton.id = 'add-task-btn';
     const addTaskImg = document.createElement('img');
     addTaskImg.src = PlusIcon;
-    const addTaskText = document.createElement('span');
+    const addTaskText = document.createElement('p');
     addTaskText.innerText = 'Add Task';
     addTaskButton.append(addTaskImg, addTaskText);
 
