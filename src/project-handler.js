@@ -27,7 +27,9 @@ function getMainProjectList(){
     return mainProjectList;
 }
 
-function reIndexMainProjectList(mainProjectList){
+function reIndexMainProjectList(projectList){
+    setMainProjectList(projectList);
+
     for (let i = 0; i < mainProjectList.length;  i++){
         mainProjectList[i].id = i;
     }

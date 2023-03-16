@@ -21,11 +21,12 @@ function addProject(){
 
             currentProjectList.push(newProject);
 
-            setMainProjectList(currentProjectList);
+            //setMainProjectList(currentProjectList);
+            reIndexMainProjectList(currentProjectList);
     
             projectListPopulator(currentProjectList);
     
-            reIndexMainProjectList(currentProjectList);
+
 
         }
 
